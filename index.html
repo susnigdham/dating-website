@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dating Sim</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div id="preloader">
+      <div class="spinner"></div>
+      <p>Loading love...</p>
+    </div>
+
+    <video autoplay muted loop playsinline id="bg-video">
+      <source src="./assets/background.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="cat-wrapper">
+      <div class="content-overlay">
+        <h1>Would you like to go on a date with me?</h1>
+      </div>
+
+      <div class="mac-window">
+        <div class="mac-header">
+          <div class="mac-buttons">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <div class="mac-title">PLEASE???</div>
+        </div>
+
+        <img
+          id="cat-gif-1"
+          class="window-gif"
+          src="./assets/cat-please.gif"
+          alt="Please cat"
+        />
+      </div>
+
+      <div class="btn-group">
+        <button id="yes-btn" onclick="goToNextPage()">Yes</button>
+        <button id="no-btn">No</button>
+      </div>
+    </div>
+
+    <script>
+      function goToNextPage() {
+        window.location.href = "yes.html";
+      }
+
+      const noBtn = document.getElementById("no-btn");
+
+      function moveNoButton() {
+        const rect = noBtn.getBoundingClientRect();
+
+        if (noBtn.style.position !== "fixed") {
+          noBtn.style.left = `${rect.left}px`;
+          noBtn.style.top = `${rect.top}px`;
+          noBtn.style.position = "fixed";
+        }
+
+        const padding = 50;
+        const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+        const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+        const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+        const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+        requestAnimationFrame(() => {
+          noBtn.style.left = `${randomX}px`;
+          noBtn.style.top = `${randomY}px`;
+        });
+      }
+      noBtn.addEventListener("click", moveNoButton);
+    </script>
+    <script>
+      window.addEventListener("load", function () {
+        const preloader = document.getElementById("preloader");
+        preloader.style.opacity = "0";
+        setTimeout(() => {
+          preloader.style.display = "none";
+        }, 500);
+      });
+    </script>
+  </body>
+</html>
